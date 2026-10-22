@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prefers Checker - Test any page against all five user-preference media queries</title>
+<meta name="description" content="Prefers Checker is a free, open-source Chrome extension that tests the page you are on against prefers-reduced-motion, prefers-color-scheme, prefers-contrast, prefers-reduced-transparency, and prefers-reduced-data, all at once.">
+<meta property="og:title" content="Prefers Checker">
+<meta property="og:description" content="One click tests the current page against all five user-preference media queries. Free and open source.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sydbal.github.io/prefers-browser-extension/">
+<meta property="og:image" content="https://sydbal.github.io/prefers-browser-extension/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Prefers Checker">
+<meta name="twitter:description" content="One click tests the current page against all five user-preference media queries. Free and open source.">
+<meta name="twitter:image" content="https://sydbal.github.io/prefers-browser-extension/og-image.png">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C0DG17Z442"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-C0DG17Z442');
+</script>
+<style>
+  :root {
+    --bg: #fafaf9; --card: #ffffff; --ink: #17171c; --muted: #55555e;
+    --purple: #7c3aed; --purple-deep: #5b21b6; --purple-soft: #ede9fe;
+    --border: #e4e4e7; --code-bg: #1d1d26; --code-ink: #eceaf6;
+    --good: #15803d; --good-bg: #dcfce7; --warn: #b45309; --warn-bg: #fef3c7;
+    --bad: #b91c1c; --bad-bg: #fee2e2;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #101014; --card: #18181e; --ink: #f1f0f5; --muted: #b6b6c0;
+      --purple-soft: #2e1a5e; --border: #2c2c34;
+      --good: #4ade80; --good-bg: #14532d; --warn: #fbbf24; --warn-bg: #78350f;
+      --bad: #f87171; --bad-bg: #7f1d1d;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+  :focus-visible { outline: 3px solid var(--purple); outline-offset: 2px; }
+  a { color: var(--purple); }
+  .hero {
+    background: linear-gradient(135deg, var(--purple-soft), var(--bg) 70%);
+    border-bottom: 1px solid var(--border);
+    padding: 4.5rem 1.25rem 3.5rem;
+    text-align: center;
+  }
+  .hero h1 { font-size: clamp(2.1rem, 6vw, 3.6rem); margin: 0 0 1rem; letter-spacing: -0.02em; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .hero .tagline { font-size: clamp(1.05rem, 2.5vw, 1.35rem); color: var(--muted); max-width: 42rem; margin: 0 auto 2rem; }
+  .cta-row { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 0.7rem 1.4rem; border-radius: 10px; font-weight: 600;
+    text-decoration: none; border: 1px solid var(--purple);
+  }
+  .btn-primary { background: var(--purple); color: #fff; }
+  .btn-ghost { background: var(--card); color: var(--purple); }
+  .hero .version { color: var(--muted); font-size: 0.9rem; margin-top: 1rem; }
+  .report-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(124, 58, 237, 0.14);
+    max-width: 34rem; margin: 2.5rem auto 0; padding: 1.5rem 1.75rem; text-align: left;
+  }
+  .report-card .summary { font-weight: 700; margin: 0 0 1rem; }
+  .report-row { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.45rem 0; border-top: 1px solid var(--border); }
+  .report-row .fname { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.92rem; }
+  .pill { font-size: 0.78rem; font-weight: 700; padding: 0.15rem 0.6rem; border-radius: 999px; white-space: nowrap; }
+  .pill.pass { background: var(--good-bg); color: var(--good); }
+  .pill.partial { background: var(--warn-bg); color: var(--warn); }
+  .pill.fail { background: var(--bad-bg); color: var(--bad); }
+  .pill.unknown { background: var(--border); color: var(--muted); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+  section { margin-bottom: 3rem; }
+  h2 { font-size: 1.6rem; margin: 0 0 0.75rem; letter-spacing: -0.01em; }
+  p { margin: 0 0 1rem; }
+  .muted { color: var(--muted); }
+  code.inline { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--code-bg); color: var(--code-ink); padding: 0.1rem 0.35rem; border-radius: 4px; font-size: 0.9em; }
+  ul, ol { padding-left: 1.25rem; margin: 0 0 1rem; }
+  li { margin-bottom: 0.5rem; }
+  li::marker { color: var(--purple); }
+  .check { border: 1px solid var(--border); border-radius: 16px; background: var(--card); padding: 1.1rem 1.25rem; margin-bottom: 0.75rem; }
+  .check .fname { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 700; display: block; margin-bottom: 0.25rem; }
+  .check p { margin: 0; font-size: 0.95rem; color: var(--muted); }
+  footer { border-top: 1px solid var(--border); padding: 2rem 1.25rem; text-align: center; color: var(--muted); font-size: 0.92rem; }
+  footer .family { margin-bottom: 0.75rem; }
+  footer .family a { margin: 0 0.4rem; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>Prefers Checker</h1>
+  <p class="tagline">Your users tell their devices how they need the web to behave: less motion, dark or light, more contrast, less transparency, less data. This extension tests whether the page you are on actually listens, all five at once.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="https://github.com/SydBal/prefers-browser-extension/archive/refs/tags/v1.0.0.zip">Download v1.0.0</a>
+    <a class="btn btn-ghost" href="https://github.com/SydBal/prefers-browser-extension">View on GitHub</a>
+  </div>
+  <p class="version">Free and open source (MIT). Chrome extension, loaded unpacked for now; a Web Store listing comes later.</p>
+
+  <div class="report-card" aria-label="Example report">
+    <p class="summary">Example report: Handles 2 of 5 preferences</p>
+    <div class="report-row"><span class="fname">prefers-reduced-motion</span><span class="pill fail">Fail</span></div>
+    <div class="report-row"><span class="fname">prefers-color-scheme</span><span class="pill pass">Pass</span></div>
+    <div class="report-row"><span class="fname">prefers-contrast</span><span class="pill partial">Partial</span></div>
+    <div class="report-row"><span class="fname">prefers-reduced-transparency</span><span class="pill unknown">Not testable</span></div>
+    <div class="report-row"><span class="fname">prefers-reduced-data</span><span class="pill pass">Pass</span></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section aria-labelledby="what">
+    <h2 id="what">What it checks</h2>
+    <p>Click the toolbar button on any page. You get one row per preference, with a verdict and the evidence behind it:</p>
+    <div class="check"><span class="fname">prefers-reduced-motion</span><p>Counts animations actually running on the page, looks for reduced-motion rules in the CSS, and in the deep test checks whether the animations stop when reduction is requested.</p></div>
+    <div class="check"><span class="fname">prefers-color-scheme</span><p>Looks for dark-scheme support in the CSS and meta tags, and in the deep test flips the scheme and measures whether the page's colors actually change.</p></div>
+    <div class="check"><span class="fname">prefers-contrast</span><p>Samples real text on the page and computes WCAG contrast ratios against the effective background, naming the worst offender. The deep test re-samples under a more-contrast request.</p></div>
+    <div class="check"><span class="fname">prefers-reduced-transparency</span><p>Counts frosted-glass surfaces (backdrop-filter and translucent layers) and checks for handling rules. If your browser cannot emulate the setting yet, the row honestly says Not testable instead of failing the site.</p></div>
+    <div class="check"><span class="fname">prefers-reduced-data</span><p>Weighs what the page actually downloaded, counts images and videos, flags autoplay, and looks for data-saver handling rules.</p></div>
+  </section>
+
+  <section aria-labelledby="how">
+    <h2 id="how">How it works</h2>
+    <p><strong>Instant scan.</strong> The moment you open the popup, the extension probes the live page: its stylesheets, its running animations, its text contrast, its resource weight. No special access, no waiting.</p>
+    <p><strong>Deep test.</strong> One button press attaches Chrome's debugger protocol to the tab and flips each media feature to the state the user is asking for, using <code class="inline">Emulation.setEmulatedMedia</code>, the same mechanism as DevTools' Rendering panel. It re-measures in every state, then clears the emulation and lets go. This is the part a website cannot do: a page in an iframe can never force these settings on someone else's site, but an extension with the debugger permission can.</p>
+    <p>Verdicts are Pass, Partial, Fail, Unknown, or Not testable, each with the measured evidence one click away. No score is invented: if the tool could not measure something, it says so.</p>
+  </section>
+
+  <section aria-labelledby="install">
+    <h2 id="install">Install</h2>
+    <p>Prefers Checker is not on the Chrome Web Store yet, so it installs the developer way:</p>
+    <ol>
+      <li>Download the zip above and unzip it.</li>
+      <li>Open <code class="inline">chrome://extensions</code> in Chrome.</li>
+      <li>Turn on <strong>Developer mode</strong> (top right).</li>
+      <li>Click <strong>Load unpacked</strong> and select the unzipped folder (the one containing <code class="inline">manifest.json</code>).</li>
+    </ol>
+    <p>Pin it to the toolbar, open any page, and click it. Close DevTools on the tab first if you plan to run the deep test; the two cannot attach at once.</p>
+  </section>
+
+  <section aria-labelledby="limits">
+    <h2 id="limits">Honest limits</h2>
+    <ul>
+      <li>Cross-origin stylesheets are partly invisible to any extension, so rule detection can miss handling that lives in a CDN stylesheet. The report tells you how many sheets it could not read.</li>
+      <li>Contrast sampling is a heuristic. Text over photos and gradients is counted as unmeasurable, not guessed at.</li>
+      <li>Page weight counts resources loaded so far. A page that lazy-loads more later weighs more than the scan shows.</li>
+      <li>Support for emulating reduced-data and reduced-transparency varies by Chrome version. When the browser refuses to flip one, the verdict rests on the instant evidence and says so.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="contribute">
+    <h2 id="contribute">Open source, contributions welcome</h2>
+    <p>Prefers Checker is MIT-licensed and developed in the open at <a href="https://github.com/SydBal/prefers-browser-extension">github.com/SydBal/prefers-browser-extension</a>. The analysis core is deliberately boring: plain JavaScript, no build step, no dependencies, and the scoring logic is DOM-free with a node test suite, so most of it can be hacked on without loading the extension at all.</p>
+    <p>Good ways in: try it on sites you build and file issues with the reports you get, suggest verdict rules for cases the tool gets wrong, or pick up a starter issue. Read the README in the repo for the layout and the known-limitations list before a pull request, so we are arguing about the same facts.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="family">
+    The prefers-* family:
+    <a href="https://prefers-reduced-motion.com/">prefers-reduced-motion</a> ·
+    <a href="https://prefers-color-scheme.com/">prefers-color-scheme</a> ·
+    <a href="https://prefers-reduced-data.com/">prefers-reduced-data</a> ·
+    <a href="https://prefers-reduced-transparency.com/">prefers-reduced-transparency</a> ·
+    <a href="https://prefers-contrast.com/">prefers-contrast</a>
+  </div>
+  Built by <a href="https://dominic.balass.one/">Dominic Balassone</a>
+</footer>
+
+</body>
+</html>
