@@ -2,7 +2,7 @@
 
 A Chrome extension that tests the current page against all five user-preference media queries at once. Open source (MIT), contributions welcome.
 
-**Landing page:** https://sydbal.github.io/prefers-browser-extension/
+**Landing page:** https://dominic.balass.one/prefers-browser-extension/
 **Download:** https://github.com/SydBal/prefers-browser-extension/releases/latest
 
 The rest of this README is the extension's own documentation: what it checks, how to load it unpacked, how the two scan tiers work, and its known limits.
