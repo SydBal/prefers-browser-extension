@@ -1,6 +1,6 @@
 # Prefers Checker
 
-A Chrome extension that tests the current page against all five user-preference media queries at once. Open source (MIT) — contributions welcome.
+A Chrome extension that tests the current page against all five user-preference media queries at once. Open source (MIT), contributions welcome.
 
 **Landing page:** https://sydbal.github.io/prefers-browser-extension/
 **Download:** https://github.com/SydBal/prefers-browser-extension/releases/latest
