@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Prefers Checker</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="header">
+    <h1><span class="dot"></span>Prefers Checker</h1>
+    <p id="page-url" class="page-url">Finding the current page...</p>
+    <p id="overall" class="overall"></p>
+  </header>
+
+  <main>
+    <div id="error" class="error" hidden></div>
+    <div id="rows" class="rows"></div>
+
+    <section class="deep">
+      <button id="deep-button" type="button">Run deep test</button>
+      <p id="deep-status" class="deep-status">
+        The deep test attaches the debugger and emulates each preference on
+        this tab, the way the DevTools Rendering panel does. Chrome shows a
+        debugging banner while it runs, and the page is left untouched
+        afterwards.
+      </p>
+    </section>
+
+    <section class="notes">
+      <h2>Honest limits</h2>
+      <ul id="notes-list">
+        <li>Contrast samples visible text only, flat 4.5:1 threshold, images and gradients skipped.</li>
+        <li>Cross-origin stylesheets cannot be read, so rules inside them are invisible to the scan.</li>
+        <li>If DevTools is open on this tab, the deep test cannot attach.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="core.js"></script>
+  <script src="analyzer.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
