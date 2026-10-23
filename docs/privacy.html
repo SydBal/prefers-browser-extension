@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy - Prefers Checker</title>
+<meta name="description" content="Privacy policy for the Prefers Checker Chrome extension: what it accesses, why, and what leaves your device (nothing).">
+<meta property="og:title" content="Prefers Checker - Privacy Policy">
+<meta property="og:description" content="What Prefers Checker accesses, why, and what leaves your device (nothing).">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dominic.balass.one/prefers-browser-extension/privacy.html">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C0DG17Z442"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-C0DG17Z442');
+</script>
+<style>
+  :root {
+    --bg: #fafaf9; --card: #ffffff; --ink: #17171c; --muted: #55555e;
+    --purple: #7c3aed; --purple-deep: #5b21b6; --purple-soft: #ede9fe;
+    --border: #e4e4e7; --code-bg: #1d1d26; --code-ink: #eceaf6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #101014; --card: #18181e; --ink: #f1f0f5; --muted: #b6b6c0;
+      --purple-soft: #2e1a5e; --border: #2c2c34;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+  :focus-visible { outline: 3px solid var(--purple); outline-offset: 2px; }
+  a { color: var(--purple); }
+  .hero {
+    background: linear-gradient(135deg, var(--purple-soft), var(--bg) 70%);
+    border-bottom: 1px solid var(--border);
+    padding: 3.5rem 1.25rem 2.5rem;
+    text-align: center;
+  }
+  .hero h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); margin: 0 0 0.5rem; letter-spacing: -0.02em; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .hero p { color: var(--muted); margin: 0; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+  section { margin-bottom: 2.5rem; }
+  h2 { font-size: 1.4rem; margin: 0 0 0.75rem; letter-spacing: -0.01em; }
+  p { margin: 0 0 1rem; }
+  .muted { color: var(--muted); }
+  code.inline { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--code-bg); color: var(--code-ink); padding: 0.1rem 0.35rem; border-radius: 4px; font-size: 0.9em; }
+  ul { padding-left: 1.25rem; margin: 0 0 1rem; }
+  li { margin-bottom: 0.5rem; }
+  li::marker { color: var(--purple); }
+  .perm { border: 1px solid var(--border); border-radius: 16px; background: var(--card); padding: 1.1rem 1.25rem; margin-bottom: 0.75rem; }
+  .perm .pname { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 700; display: block; margin-bottom: 0.25rem; }
+  .perm p { margin: 0; font-size: 0.95rem; color: var(--muted); }
+  footer { border-top: 1px solid var(--border); padding: 2rem 1.25rem; text-align: center; color: var(--muted); font-size: 0.92rem; }
+  footer .family { margin-bottom: 0.75rem; }
+  footer .family a { margin: 0 0.4rem; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>Privacy Policy</h1>
+  <p>Prefers Checker &middot; Last updated October 22, 2026</p>
+</header>
+
+<main class="wrap">
+
+  <section>
+    <h2>The short version</h2>
+    <p>The extension collects no personal data, has no accounts, shows no ads, and includes no analytics. Everything it measures stays on your device. Nothing it sees is sent anywhere, to anyone, ever.</p>
+  </section>
+
+  <section>
+    <h2>What the extension accesses, and why</h2>
+    <p>Prefers Checker needs a handful of browser permissions to do its one job: measure how the page you are on handles five user-preference media queries. Each permission is used only for that.</p>
+    <div class="perm"><span class="pname">activeTab + scripting</span><p>Runs the instant scan against the tab you clicked the button on: reads its stylesheets for handling rules, counts running animations, samples text for contrast, weighs loaded resources. Nothing runs on tabs you have not clicked it on.</p></div>
+    <div class="perm"><span class="pname">tabs</span><p>Identifies which tab is being scanned so the report attaches to the right page.</p></div>
+    <div class="perm"><span class="pname">storage</span><p>Keeps the latest scan result on your device so the popup can show it. Local only; nothing syncs anywhere.</p></div>
+    <div class="perm"><span class="pname">debugger</span><p>Powers the deep test. With your button press, it attaches Chrome's debugger protocol to the tab and flips each of the five media features to its requested state via <code class="inline">Emulation.setEmulatedMedia</code>, the same mechanism as DevTools' own Rendering panel, re-measures, then clears the emulation and detaches. The debugger is never attached except while a deep test you started is running.</p></div>
+  </section>
+
+  <section>
+    <h2>What leaves your device</h2>
+    <p>Nothing. Scan results, page measurements, and verdicts are computed locally and stored only in the browser's on-device storage. The extension makes no network requests of its own: no analytics, no telemetry, no crash reports, no update checks beyond what Chrome itself does for every extension.</p>
+  </section>
+
+  <section>
+    <h2>This website</h2>
+    <p>This landing page (dominic.balass.one/prefers-browser-extension/) uses Google Analytics to count visits, like the rest of this site family. That is separate from the extension, which has no analytics at all.</p>
+  </section>
+
+  <section>
+    <h2>Changes</h2>
+    <p>If this policy ever changes, the new version ships with the extension update and the date above moves. The source of truth lives in the open-source repo at <a href="https://github.com/SydBal/prefers-browser-extension">github.com/SydBal/prefers-browser-extension</a>; questions and corrections are welcome as issues there.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="family">
+    The prefers-* family:
+    <a href="https://prefers-reduced-motion.com/">prefers-reduced-motion</a> &middot;
+    <a href="https://prefers-color-scheme.com/">prefers-color-scheme</a> &middot;
+    <a href="https://prefers-reduced-data.com/">prefers-reduced-data</a> &middot;
+    <a href="https://prefers-reduced-transparency.com/">prefers-reduced-transparency</a> &middot;
+    <a href="https://prefers-contrast.com/">prefers-contrast</a>
+  </div>
+  Built by <a href="https://dominic.balass.one/">Dominic Balassone</a> &middot; <a href="index.html">Prefers Checker</a>
+</footer>
+
+</body>
+</html>
