@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>prefers-* — five user preferences, one page</title>
+<meta name="description" content="One page for all five prefers-* media queries: a live readout from your own browser, the pain point behind each one, honest support notes, and links to each full site.">
+<meta property="og:title" content="prefers-* — five user preferences, one page">
+<meta property="og:description" content="Five small questions your browser can ask about your visitors, with live readouts, honest support notes, and links to each full site.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dominic.balass.one/prefers-browser-extension/overview.html">
+<meta property="og:image" content="https://dominic.balass.one/prefers-browser-extension/overview-og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="prefers-* — five user preferences, one page">
+<meta name="twitter:description" content="Five small questions your browser can ask about your visitors, with live readouts, honest support notes, and links to each full site.">
+<meta name="twitter:image" content="https://dominic.balass.one/prefers-browser-extension/overview-og.png">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C0DG17Z442"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-C0DG17Z442');
+</script>
+<style>
+  :root {
+    --bg: #fafaf9; --card: #ffffff; --ink: #17171c; --muted: #55555e;
+    --purple: #7c3aed; --purple-deep: #5b21b6; --purple-soft: #ede9fe;
+    --border: #e4e4e7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #101014; --card: #18181e; --ink: #f1f0f5; --muted: #b6b6c0;
+      --purple-soft: #2e1a5e; --border: #2c2c34;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+  :focus-visible { outline: 3px solid var(--purple); outline-offset: 2px; }
+  a { color: var(--purple); }
+  .hero {
+    background: linear-gradient(135deg, var(--purple-soft), var(--bg) 70%);
+    border-bottom: 1px solid var(--border);
+    padding: 4.5rem 1.25rem 3.5rem;
+    text-align: center;
+  }
+  .hero h1 { font-size: clamp(2.4rem, 8vw, 4rem); margin: 0 0 1rem; letter-spacing: -0.02em; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .hero .tagline { font-size: clamp(1.05rem, 2.5vw, 1.35rem); color: var(--muted); max-width: 42rem; margin: 0 auto; }
+  main { max-width: 44rem; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+  .intro { color: var(--muted); font-size: 1.05rem; margin: 0 0 2rem; }
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(124, 58, 237, 0.14);
+    padding: 1.5rem 1.75rem; margin: 0 0 1.5rem;
+  }
+  .card h2 { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1.25rem; margin: 0 0 0.5rem; }
+  .card .pain { margin: 0 0 1rem; }
+  .readout {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    padding: 0.6rem 0; margin: 0 0 1rem;
+  }
+  .readout .label { color: var(--muted); font-size: 0.9rem; }
+  .readout .value { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 700; }
+  .card .support { color: var(--muted); font-size: 0.95rem; margin: 0 0 1rem; }
+  .card .visit { font-weight: 600; }
+  .ad {
+    background: linear-gradient(135deg, var(--purple), var(--purple-deep));
+    color: #fff; border: none;
+    box-shadow: 0 16px 40px rgba(124, 58, 237, 0.4);
+  }
+  .ad .eyebrow { font-size: 0.85rem; letter-spacing: 0.04em; text-transform: uppercase; opacity: 0.85; margin: 0 0 0.5rem; }
+  .ad h2 { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 1.6rem; margin: 0 0 0.5rem; }
+  .ad p { margin: 0 0 1.25rem; opacity: 0.95; }
+  .ad .cta-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .ad .btn {
+    display: inline-block; padding: 0.7rem 1.4rem; border-radius: 10px; font-weight: 600;
+    text-decoration: none;
+  }
+  .ad .btn-download { background: #fff; color: var(--purple-deep); }
+  .ad .btn-ghost { background: transparent; color: #fff; border: 1px solid rgba(255, 255, 255, 0.7); }
+  footer { border-top: 1px solid var(--border); padding: 2rem 1.25rem; text-align: center; color: var(--muted); }
+  footer .family { margin-bottom: 0.75rem; }
+</style>
+</head>
+<body>
+<header class="hero">
+  <h1>prefers-*</h1>
+  <p class="tagline">Five small questions your browser can ask about your visitors, and what to do with the answers.</p>
+</header>
+<main>
+  <p class="intro">Each card shows your own browser's answer, live, plus the pain point behind the query and an honest support note. The full demo and pattern for each one lives on its own site.</p>
+
+  <section class="card">
+    <h2>prefers-reduced-motion</h2>
+    <p class="pain">Your animation is not decoration to everyone. For some visitors it means dizziness and nausea.</p>
+    <div class="readout"><span class="label">Your browser says</span><span class="value" id="readout-motion">…</span></div>
+    <p class="support">Support: everywhere. Chrome 74+, Firefox 63+, Safari 10.1+, Edge 79+.</p>
+    <a class="visit" href="https://prefers-reduced-motion.com/">Visit the full site →</a>
+  </section>
+
+  <section class="card">
+    <h2>prefers-color-scheme</h2>
+    <p class="pain">A blinding white page in a dark room at 2am.</p>
+    <div class="readout"><span class="label">Your browser says</span><span class="value" id="readout-scheme">…</span></div>
+    <p class="support">Support: everywhere. Chrome 76+, Firefox 67+, Safari 12.1+, Edge 79+.</p>
+    <a class="visit" href="https://prefers-color-scheme.com/">Visit the full site →</a>
+  </section>
+
+  <section class="card">
+    <h2>prefers-reduced-data</h2>
+    <p class="pain">Your page costs real money on a metered plan.</p>
+    <div class="readout"><span class="label">Your browser says</span><span class="value" id="readout-data">…</span></div>
+    <p class="support">Support: limited. Chromium exposes it behind a flag; Firefox and Safari do not implement it. The Save-Data request header reaches further.</p>
+    <a class="visit" href="https://prefers-reduced-data.com/">Visit the full site →</a>
+  </section>
+
+  <section class="card">
+    <h2>prefers-contrast</h2>
+    <p class="pain">Your quiet grey text simply disappears for someone with low vision.</p>
+    <div class="readout"><span class="label">Your browser says</span><span class="value" id="readout-contrast">…</span></div>
+    <p class="support">Support: Baseline since late 2024. Chrome and Edge 96, Firefox 101, Safari 14.1 on macOS and 14.5 on iOS.</p>
+    <a class="visit" href="https://prefers-contrast.com/">Visit the full site →</a>
+  </section>
+
+  <section class="card">
+    <h2>prefers-reduced-transparency</h2>
+    <p class="pain">Your frosted-glass text washes out over a busy photo.</p>
+    <div class="readout"><span class="label">Your browser says</span><span class="value" id="readout-transparency">…</span></div>
+    <p class="support">Support: none yet. Still a Media Queries Level 5 draft, and no browser implements it.</p>
+    <a class="visit" href="https://prefers-reduced-transparency.com/">Visit the full site →</a>
+  </section>
+
+  <section class="card ad">
+    <p class="eyebrow">A word from our sponsor (it's us)</p>
+    <h2>Test all five at once</h2>
+    <p>Prefers Checker flips all five preferences on any page, instantly, and grades the result. Free and open source.</p>
+    <div class="cta-row">
+      <a class="btn btn-download" href="https://github.com/SydBal/prefers-browser-extension/archive/refs/tags/v1.0.0.zip">Download v1.0.0</a>
+      <a class="btn btn-ghost" href="./">See how it works</a>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="family">
+    The prefers-* family:
+    <a href="https://prefers-reduced-motion.com/">prefers-reduced-motion</a> ·
+    <a href="https://prefers-color-scheme.com/">prefers-color-scheme</a> ·
+    <a href="https://prefers-reduced-data.com/">prefers-reduced-data</a> ·
+    <a href="https://prefers-reduced-transparency.com/">prefers-reduced-transparency</a> ·
+    <a href="https://prefers-contrast.com/">prefers-contrast</a>
+  </div>
+  Built by <a href="https://dominic.balass.one/">Dominic Balassone</a> · <a href="./">Prefers Checker</a> · <a href="privacy.html">Privacy policy</a>
+</footer>
+<script>
+  function bind(query, elId, render) {
+    var mql = window.matchMedia(query);
+    var el = document.getElementById(elId);
+    function update() { el.textContent = render(mql.matches); }
+    mql.addEventListener('change', update);
+    update();
+  }
+  bind('(prefers-reduced-motion: reduce)', 'readout-motion', function (m) { return m ? 'reduce' : 'no-preference'; });
+  bind('(prefers-color-scheme: dark)', 'readout-scheme', function (m) { return m ? 'dark' : 'light'; });
+  bind('(prefers-reduced-data: reduce)', 'readout-data', function (m) { return m ? 'reduce' : 'no-preference'; });
+  bind('(prefers-reduced-transparency: reduce)', 'readout-transparency', function (m) { return m ? 'reduce' : 'no-preference'; });
+  (function () {
+    var el = document.getElementById('readout-contrast');
+    var queries = {
+      'more': window.matchMedia('(prefers-contrast: more)'),
+      'less': window.matchMedia('(prefers-contrast: less)'),
+      'custom': window.matchMedia('(prefers-contrast: custom)')
+    };
+    function update() {
+      el.textContent = queries.more.matches ? 'more' : queries.less.matches ? 'less' : queries.custom.matches ? 'custom' : 'no-preference';
+    }
+    Object.keys(queries).forEach(function (k) { queries[k].addEventListener('change', update); });
+    update();
+  })();
+</script>
+</body>
+</html>
